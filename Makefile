@@ -1,6 +1,9 @@
 # Makefile for Docker container management
 # Usage: make run-container IMAGE=your_image_name [CONTAINER_NAME=your_container_name]
 
+# Default target - run exec
+.DEFAULT_GOAL := exec
+
 .PHONY: run-container update rm-container exec
 
 # Set default container name if not provided
@@ -26,6 +29,8 @@ ifndef IMAGE
 	@exit 1
 endif
 	docker run -itd --name $(CONTAINER_NAME) -v `pwd`:/root/ -u `id -u`:`id -g` $(IMAGE)
+	docker exec -u 0 $(CONTAINER_NAME) useradd -u `id -u` -G wheel -m `whoami`
+	docker exec -u 0 $(CONTAINER_NAME) sh -c "echo `whoami` 'ALL=(ALL) ALL' >> /etc/sudoers"
 
 # Remove container target - checks if container exists and asks for confirmation
 rm-container:
