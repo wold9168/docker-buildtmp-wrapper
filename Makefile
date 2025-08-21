@@ -25,7 +25,7 @@ ifndef IMAGE
 	@echo "Usage: make run-container IMAGE=your_image_name [CONTAINER_NAME=your_container_name]"
 	@exit 1
 endif
-	docker run -itd --name $(CONTAINER_NAME) -v ~/docker/_template:/root/ -u `id -u`:`id -g` $(IMAGE)
+	docker run -itd --name $(CONTAINER_NAME) -v `pwd`:/root/ -u `id -u`:`id -g` $(IMAGE)
 
 # Remove container target - checks if container exists and asks for confirmation
 rm-container:
