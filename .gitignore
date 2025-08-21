@@ -1,0 +1,12 @@
+# Ignore everything by default
+*
+
+# But allow these specific files
+!/update.sh
+!/Makefile
+
+# Allow the .gitignore file itself to be tracked
+!.gitignore
+
+# Note: This .gitignore uses a "deny all, allow specific" approach
+# All files and directories will be ignored except for the explicitly allowed ones
